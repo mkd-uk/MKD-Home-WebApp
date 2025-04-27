@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Web App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #e8f4fc; /* Lighter blue background */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevent body scrolling */
+        }
+
+        .header {
+            background-color: #2c3e50; /* Darker blue for header */
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 30px;
+            z-index: 20;
+        }
+
+        .hamburger div {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .right-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .right-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .right-nav a:hover {
+            color: #3498db; /* Lighter blue for hover */
+            text-decoration: underline;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #34495e; /* Dark blue for sidebar */
+            transition: left 0.3s ease;
+            z-index: 15;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #455d7a;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar ul li a:hover {
+            color: #3498db; /* Lighter blue for hover */
+        }
+
+        /* Main content area - scrollable */
+        .content-container {
+            flex: 1;
+            overflow-y: auto; /* Make content scrollable */
+            padding: 20px;
+            position: relative;
+            background-color: #e8f4fc; /* Lighter blue background */
+        }
+
+        .content {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 5;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Fixed bottom bar */
+        .bottom-bar {
+            background-color: #2c3e50; /* Darker blue to match header */
+            color: white;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .bottom-bar:hover {
+            background-color: #34495e; /* Slightly lighter on hover */
+        }
+
+        /* Arrow icon for bottom bar */
+        .bottom-bar::before {
+            content: "↑";
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .right-nav {
+                display: none;
+            }
+            
+            .app-title {
+                font-size: 1.2rem;
+            }
+
+            .bottom-bar {
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed header with banner, hamburger menu, and right navigation -->
+    <header class="header" id="top">
+        <div class="hamburger" id="hamburgerBtn">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="app-title">My Personal Web App</div>
+        <nav class="right-nav">
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Scrollable content container -->
+    <div class="content-container" id="contentContainer">
+        <!-- Main content area -->
+        <div class="content">
+            <h2>Welcome to My Personal Web App</h2>
+            <p>This is a starter template for your personal web application. It includes:</p>
+            <ul>
+                <li>A fixed header with app title</li>
+                <li>A hamburger menu that opens a sidebar</li>
+                <li>Right-side navigation links</li>
+                <li>A scrollable content area</li>
+                <li>A fixed bottom bar for scrolling to top</li>
+                <li>A clean, modern design with coordinated color theme</li>
+            </ul>
+            <p>You can customize this template to suit your needs!</p>
+            
+            <!-- Adding extra content to make the page scrollable -->
+            <div style="margin-top: 40px;">
+                <h2>Additional Content</h2>
+                <p>This is some additional content to make the page scrollable so you can test the scroll-to-top functionality.</p>
+                <p>Scroll down to see more content and test the scroll-to-top button.</p>
+                <div style="height: 300px; background-color: #f0f8ff; margin: 20px 0; padding: 20px; border-radius: 5px;">
+                    <h3>Section 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl.</p>
+                </div>
+                <div style="height: 300px; background-color: #f0f8ff; margin: 20px 0; padding: 20px; border-radius: 5px;">
+                    <h3>Section 2</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl.</p>
+                </div>
+                <div style="height: 300px; background-color: #f0f8ff; margin: 20px 0; padding: 20px; border-radius: 5px;">
+                    <h3>Section 3</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl.</p>
+                </div>
+                <div style="height: 300px; background-color: #f0f8ff; margin: 20px 0; padding: 20px; border-radius: 5px;">
+                    <h3>Section 4</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl. Nullam auctor, nisl id aliquam lacinia, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet nisl.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar menu -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#profile">Profile</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay for when sidebar is open -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Fixed bottom bar -->
+    <div class="bottom-bar" id="bottomBar">
+        Scroll to top
+    </div>
+
+    <script>
+        // Get DOM elements
+        const hamburger = document.getElementById('hamburgerBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const bottomBar = document.getElementById('bottomBar');
+        const contentContainer = document.getElementById('contentContainer');
+
+        // Toggle sidebar when hamburger is clicked
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close sidebar when menu item is clicked
+        const menuItems = document.querySelectorAll('.sidebar ul li a');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // Scroll to top when bottom bar is clicked
+        bottomBar.addEventListener('click', () => {
+            contentContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
